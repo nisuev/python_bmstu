@@ -1,16 +1,13 @@
 def to_roman(num):
-    one = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
-    ten = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC']
-    hundred = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM']
-    thouthand = ['', 'M', 'MM', 'MMM']
+    rom_sil = ['', '+', '++', '+++', '+-', '-', '-+', '-++', '-+++', '+*']
 
-    one_num = one[num % 10]
-    ten_num = ten[num // 10 % 10]
-    hundred_num = hundred[num // 100 % 10]
-    thouthands_num = thouthand[num // 1000]
+    one = rom_sil[num % 10].replace('+', 'I').replace('-', 'V').replace('*', 'X')
+    ten = rom_sil[num // 10 % 10].replace('+', 'X').replace('-', 'L').replace('*', 'C')
+    hundred = rom_sil[num // 100 % 10].replace('+', 'C').replace('-', 'D').replace('*', 'M')
+    thousand = rom_sil[num // 1000].replace('+', 'M') if num // 1000 <= 3 else 'big'
 
-    roman_num = thouthands_num + hundred_num + ten_num + one_num
-    return roman_num
+    return thousand + hundred + ten + one if thousand != 'big' else None
+
 
 file = 'in1.txt'
 file_new = 'out1.txt'
